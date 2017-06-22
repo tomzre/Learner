@@ -1,4 +1,5 @@
 ﻿using Learner.Services;
+using Learner.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,20 @@ namespace Learner.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUserService _userService;
+
+        public HomeController(IUserService userService)
+        {
+            _userService = userService;
+        }
         public ActionResult Index()
         {
-            ReservationRepository repo = new ReservationRepository();
-            repo.Add(null);
-            return View();
+            var vm = new UserViewModel();
+            var users = _userService.GetAllUsers();
+            vm.Users = users;
+            vm.User = _userService.GetUser(150);
+
+            return View(vm);
         }
 
         public ActionResult About()

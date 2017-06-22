@@ -50,6 +50,7 @@ namespace Learner.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 kernel.Bind<IReservationRepository>().To<ReservationRepository>();
+                kernel.Bind<IUserService>().To<UserService>();
 
                 RegisterServices(kernel);
                 GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -15,22 +16,22 @@ namespace Learner.Controllers
     public class TestController : ApiController
     {
         private readonly IReservationRepository _reservationRepository;
+        private readonly IUserService _userService;
 
-      
-
-        public TestController(IReservationRepository reservationRepo)
+        public TestController(IReservationRepository reservationRepo, IUserService userService)
         {
             _reservationRepository = reservationRepo;
+            _userService = userService;
             
         }
-        public IEnumerable<Reservation> GetAllReservations()
+        public async Task<IEnumerable<User>> GetAllReservations()
         {
 
             HttpRequestHeaders header = this.Request.Headers;
-            //header.Authorization.
 
 
-            return _reservationRepository.GetAll();
+
+            return await _userService.GetAllUsers();
         }
 
         public Reservation GetReservation(int id)
